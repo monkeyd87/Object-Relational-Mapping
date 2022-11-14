@@ -7,7 +7,19 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
-  Product.findAll().then(data=>res.send(data))
+  Product.findAll({
+    include:[Category,Tag]
+  }).then(data=>
+    {
+      if(!data){
+        console.log("Product not found")
+        res.status(404).json({message:"Product not found"})
+      }
+      res.json(data)
+    res.json(data)}).catch(err=>{
+      console.log(err)
+      res.status(500)
+    })
 });
 
 // get one product
@@ -17,8 +29,17 @@ router.get('/:id', (req, res) => {
   Product.findOne({
     where:{
       id:req.params.id
+    },
+    include:[Category,Tag]
+  }).then((data)=>
+  {
+    if(!data){
+      console.log('Product not found')
     }
-  }).then((data)=>res.send(data))
+    res.json(data)}).catch(err=>{
+      console.log(err)
+      res.status(500).json({message:"sever error"})
+    })
 });
 
 // create new product
@@ -97,6 +118,14 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  Product.destroy({where:{
+    id:req.params.id
+  }}).then(data=>{
+    !data?res.status(404).json({message:'{Product not found'}):res.json(data)
+  }).catch(err=>{
+    console.log(err)
+    res.status(500).json({message:'server error'})
+  })
 });
 
 module.exports = router;
