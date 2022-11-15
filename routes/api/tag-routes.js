@@ -32,8 +32,10 @@ router.get('/:id', (req, res) => {
   ).then(data=>{
     if(!data){
       res.status(404).json({Message:"Tag not found"})
+    }else{
+
+      res.json(data)
     }
-    res.json(data)
   }).catch(err=>{
     console.log(err)
     res.status(500).json({message:'Server error'})
@@ -88,8 +90,10 @@ router.delete('/:id', (req, res) => {
   ).then(data=>{
     if(!data){
       res.status(404).json({messae:'Tag not Found'})
+    }else{
+
+      res.json(data)
     }
-    res.json(data)
   }).catch(err=>{
     console.log(err)
     res.status(500).json({message:'Server Error'})

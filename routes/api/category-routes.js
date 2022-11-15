@@ -41,6 +41,8 @@ router.post('/', (req, res) => {
     if(!data){
       console.log('Category not found')
       res.status(404).json({message:'Category not found'})
+    }else{
+      res.json(data)
     }
   })
 });
@@ -52,6 +54,8 @@ router.put('/:id', (req, res) => {
   }}).then(data=>{
     if(!data){
       res.status(404).json({message:'Catagory not found'})
+    }else{
+      res.json(data)
     }
   }).catch(err=>{
     console.log(err)
@@ -71,8 +75,10 @@ router.delete('/:id', (req, res) => {
     if(!data){
       console.log('Catagory not found')
       res.status(404).json({message:'Catagory not found'})
+    }else{
+
+      res.json(data)
     }
-    res.json(data)
   }).catch(err=>{
     console.log(err)
     res.status(505).json({messae:'Catagory not found'})

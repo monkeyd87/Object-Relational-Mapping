@@ -14,8 +14,10 @@ router.get('/', (req, res) => {
       if(!data){
         console.log("Product not found")
         res.status(404).json({message:"Product not found"})
+      }else{
+
+        res.json(data)
       }
-      res.json(data)
     res.json(data)}).catch(err=>{
       console.log(err)
       res.status(500)
@@ -35,8 +37,11 @@ router.get('/:id', (req, res) => {
   {
     if(!data){
       console.log('Product not found')
+    }else{
+      
+      res.json(data)}
     }
-    res.json(data)}).catch(err=>{
+    ).catch(err=>{
       console.log(err)
       res.status(500).json({message:"sever error"})
     })
