@@ -42,7 +42,17 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new tag
-  Tag.create(req.body)
+  Tag.create(req.body).then(data=>{
+    if(!data){
+      console.log('Tag not found')
+      res.status(404).json({messae:'tag not found'})
+    }else{
+      res.json(data)
+    }
+  }).catch(err=>{
+    console.log(err)
+    res.status(500).json({message:"server error"})
+  })
 });
 
 router.put('/:id', (req, res) => {
