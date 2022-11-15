@@ -7,7 +7,10 @@ router.get('/', (req, res) => {
   // find all categories
   // be sure to include its associated Products
   Category.findAll({include:Product}).then(data=>{
-    res.json(data)
+    if(!data){
+      console.log("category not found")
+      res.status(404).json({message:'category not found'})
+    }res.json(data)
   }).catch(err =>{
     console.log(err)
     res.status(500).json(err)
