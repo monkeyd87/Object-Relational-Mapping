@@ -36,6 +36,7 @@ router.get('/:id', (req, res) => {
   {
     if(!data){
       console.log('Product not found')
+      res.status(404).json({message:'product not found'})
     }else{
       
       res.json(data)}
